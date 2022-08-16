@@ -1,0 +1,47 @@
+plugins {
+    id 'java-library'
+    id 'kotlin'
+    id 'maven-publish'
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
+}
+
+afterEvaluate {
+    publishing {
+        publications {
+            maven(MavenPublication) {
+                groupId = project.GROUP_ID
+                artifactId = project.ARTIFACT_ID
+                version = project.PLUGIN_VERSION
+                from components.java
+            }
+        }
+
+        repositories {
+            maven {
+                name = "Local"
+                url = uri("../repo")
+            }
+
+            maven {
+
+                // https://github.com/guodongAndroid/maven.git
+                String mavenUrl = getMavenUrl()
+
+                name = "Github"
+                url = mavenUrl
+            }
+        }
+    }
+}
+
+private String getMavenUrl() {
+    def properties = new Properties()
+    def is = rootProject.file('local.properties').newDataInputStream()
+    properties.load(is)
+    def mavenUrl = properties.getProperty('maven.url')
+    mavenUrl
+}
