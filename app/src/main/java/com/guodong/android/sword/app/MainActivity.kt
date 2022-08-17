@@ -54,7 +54,7 @@ class MainActivity : AppCompatActivity() {
 
     @Proxy(
         enable = BuildConfig.isDebug,
-        handler = "com.guodong.android.sword.app.GetTextNoArgInvocationHandler"
+        handler = HandlerFqName.GET_TEXT_NO_ARG
     )
     private fun getText(text: String): String {
         return text

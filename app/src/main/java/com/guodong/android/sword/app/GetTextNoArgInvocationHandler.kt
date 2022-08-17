@@ -2,10 +2,12 @@ package com.guodong.android.sword.app
 
 import android.util.Log
 import com.guodong.android.sword.api.kt.InvocationHandler
+import com.guodong.android.sword.api.kt.ProxyHandler
 
 /**
  * Created by guodongAndroid on 2022/8/15.
  */
+@ProxyHandler("GET_TEXT_NO_ARG")
 class GetTextNoArgInvocationHandler : InvocationHandler {
 
     private val TAG = GetTextNoArgInvocationHandler::class.java.simpleName

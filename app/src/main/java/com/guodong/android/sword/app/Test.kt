@@ -9,13 +9,13 @@ class Test {
 
     @Proxy(
         enable = BuildConfig.isDebug,
-        handler = "com.guodong.android.sword.app.GetTextNoArgInvocationHandler"
+        handler = HandlerFqName.GET_TEXT_NO_ARG
     )
     fun getTextNoArg() = "guodongAndroid"
 
     @Proxy(
         enable = BuildConfig.isDebug,
-        handler = "com.guodong.android.sword.app.GetTextArgInvocationHandler"
+        handler = HandlerFqName.GetTextArgInvocationHandler
     )
     fun getTextArg(
         b: Byte,

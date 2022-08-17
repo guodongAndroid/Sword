@@ -2,6 +2,7 @@ plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
     id 'com.guodong.android.sword.kcp'
+    id 'com.google.devtools.ksp'
 }
 
 android {
@@ -38,13 +39,24 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+
     kotlinOptions {
         jvmTarget = '1.8'
     }
+
+    sourceSets {
+        debug.java.srcDirs += 'build/generated/ksp/debug/kotlin'
+        release.java.srcDirs += 'build/generated/ksp/release/kotlin'
+    }
+}
+
+ksp {
+    arg("sword.pkg", "com.guodong.android.sword.app")
 }
 
 dependencies {
@@ -55,6 +67,9 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
 
     implementation project(':api-kotlin')
+
+    kspDebug project(":compiler:ksp")
+    kspRelease 'com.guodong.android:sword-compiler-ksp:0.0.1'
 
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
