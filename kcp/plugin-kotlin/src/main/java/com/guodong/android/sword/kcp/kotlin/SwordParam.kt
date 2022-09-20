@@ -5,9 +5,9 @@ package com.guodong.android.sword.kcp.kotlin
  */
 internal data class SwordParam(
     /**
-     * 是否有[Debug]注解
+     * 是否有[Proxy]注解
      */
-    var hasDebugAnnotation: Boolean = false,
+    var hasProxyAnnotation: Boolean = false,
 
     /**
      * 是否启用, 默认True
@@ -17,7 +17,7 @@ internal data class SwordParam(
     /**
      * [InvocationHandler]实现全限定名, 实现类必须有无参构造方法
      *
-     * e.g. com.example.DebugTestInvocationHandler
+     * e.g. com.example.ProxyTestInvocationHandler
      */
     var handler: String = ""
 ) {

@@ -16,8 +16,8 @@ internal class SwordAdapter(
     override fun visitAnnotation(descriptor: String, visible: Boolean): AnnotationVisitor {
         var av = super.visitAnnotation(descriptor, visible)
 
-        if (debugDesc.contains(descriptor)) {
-            param.hasDebugAnnotation = true
+        if (proxyDesc.contains(descriptor)) {
+            param.hasProxyAnnotation = true
             if (av != null) {
                 av = AnnotationAdapter(api, av, param)
             }
@@ -27,7 +27,7 @@ internal class SwordAdapter(
     }
 
     override fun visitCode() {
-        if (param.hasDebugAnnotation && param.enable) {
+        if (param.hasProxyAnnotation && param.enable) {
 
             super.visitInsn(Opcodes.ICONST_1)
             val label = Label()
@@ -358,8 +358,7 @@ internal class SwordAdapter(
     }
 
     companion object {
-        private const val DEBUG_JAVA_DESC = "Lcom/guodong/android/sword/api/Proxy;"
-        private const val DEBUG_KT_DESC = "Lcom/guodong/android/sword/api/kt/Proxy;"
+        private const val PROXY_KT_DESC = "Lcom/guodong/android/sword/api/kt/Proxy;"
 
         private const val KT_INVOCATION_HANDLER_OWNER =
             "com/guodong/android/sword/api/kt/InvocationHandler"
@@ -367,6 +366,6 @@ internal class SwordAdapter(
         private const val INVOCATION_HANDLER_INVOKE_DESC =
             "(Ljava/lang/String;Ljava/lang/String;[Ljava/lang/Object;)Ljava/lang/Object;"
 
-        private val debugDesc = listOf(DEBUG_JAVA_DESC, DEBUG_KT_DESC)
+        private val proxyDesc = listOf(PROXY_KT_DESC)
     }
 }

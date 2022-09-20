@@ -130,14 +130,14 @@ public object HandlerFqName {
   /**
    * [com.guodong.android.sword.app.GetTextArgInvocationHandler]
    */
-    public const val GetTextArgInvocationHandler: String =
-    "com.guodong.android.sword.app.GetTextArgInvocationHandler"
+  public const val GetTextArgInvocationHandler: String =
+      "com.guodong.android.sword.app.GetTextArgInvocationHandler"
 
-   /**
+  /**
    * [com.guodong.android.sword.app.GetTextNoArgInvocationHandler]
    */
-    public const val GET_TEXT_NO_ARG: String =
-    "com.guodong.android.sword.app.GetTextNoArgInvocationHandler"
+  public const val GET_TEXT_NO_ARG: String =
+      "com.guodong.android.sword.app.GetTextNoArgInvocationHandler"
 }
 ```
 

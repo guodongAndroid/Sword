@@ -20,7 +20,6 @@ internal class SwordClassBuilder(
 
     private val annotations: List<FqName> = listOf(
         FqName("com.guodong.android.sword.api.kt.Proxy"),
-        FqName("com.guodong.android.sword.api.Proxy")
     )
 
     override fun getDelegate(): ClassBuilder = delegate
@@ -54,7 +53,7 @@ internal class SwordClassBuilder(
 
         messageCollector.report(
             CompilerMessageSeverity.WARNING,
-            "Debug class = $className, methodName = $name"
+            "Sword className = $className, methodName = $name"
         )
 
         val realClassName = className.substring(className.lastIndexOf("/") + 1)
