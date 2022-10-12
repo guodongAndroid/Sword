@@ -41,38 +41,9 @@ internal class SwordAdapter(
             val handler = param.handler
 
             if (handler.isNotEmpty()) {
-                waveHandler(methodType, returnType, handler)
+                weaveHandler(methodType, returnType, handler)
             } else {
-                val sort = returnType.sort
-                when {
-                    sort == Type.VOID -> {
-                        super.visitInsn(Opcodes.RETURN)
-                    }
-                    sort == Type.CHAR -> {
-                        super.visitIntInsn(Opcodes.BIPUSH, 48)
-                        super.visitInsn(returnType.getOpcode(Opcodes.IRETURN))
-                    }
-                    sort >= Type.BOOLEAN && sort <= Type.INT -> {
-                        super.visitInsn(Opcodes.ICONST_M1)
-                        super.visitInsn(returnType.getOpcode(Opcodes.IRETURN))
-                    }
-                    sort == Type.LONG -> {
-                        super.visitLdcInsn(-1L)
-                        super.visitInsn(Opcodes.LRETURN)
-                    }
-                    sort == Type.FLOAT -> {
-                        super.visitLdcInsn(-1f)
-                        super.visitInsn(Opcodes.FRETURN)
-                    }
-                    sort == Type.DOUBLE -> {
-                        super.visitLdcInsn(-1.0)
-                        super.visitInsn(Opcodes.DRETURN)
-                    }
-                    else -> {
-                        super.visitInsn(Opcodes.ACONST_NULL)
-                        super.visitInsn(Opcodes.ARETURN)
-                    }
-                }
+                weaveDefaultValue(returnType)
             }
 
             super.visitLabel(label)
@@ -80,7 +51,40 @@ internal class SwordAdapter(
         super.visitCode()
     }
 
-    private fun waveHandler(t: Type, returnType: Type, handler: String) {
+    private fun weaveDefaultValue(returnType: Type) {
+        val sort = returnType.sort
+        when {
+            sort == Type.VOID -> {
+                super.visitInsn(Opcodes.RETURN)
+            }
+            sort == Type.CHAR -> {
+                super.visitIntInsn(Opcodes.BIPUSH, 48)
+                super.visitInsn(returnType.getOpcode(Opcodes.IRETURN))
+            }
+            sort >= Type.BOOLEAN && sort <= Type.INT -> {
+                super.visitInsn(Opcodes.ICONST_M1)
+                super.visitInsn(returnType.getOpcode(Opcodes.IRETURN))
+            }
+            sort == Type.LONG -> {
+                super.visitLdcInsn(-1L)
+                super.visitInsn(Opcodes.LRETURN)
+            }
+            sort == Type.FLOAT -> {
+                super.visitLdcInsn(-1f)
+                super.visitInsn(Opcodes.FRETURN)
+            }
+            sort == Type.DOUBLE -> {
+                super.visitLdcInsn(-1.0)
+                super.visitInsn(Opcodes.DRETURN)
+            }
+            else -> {
+                super.visitInsn(Opcodes.ACONST_NULL)
+                super.visitInsn(Opcodes.ARETURN)
+            }
+        }
+    }
+
+    private fun weaveHandler(t: Type, returnType: Type, handler: String) {
         val argumentTypes = t.argumentTypes
         val argumentSize = argumentTypes.size
 
@@ -106,7 +110,7 @@ internal class SwordAdapter(
         super.visitTypeInsn(Opcodes.ANEWARRAY, "java/lang/Object")
 
         if (argumentTypes.isNotEmpty()) {
-            waveArgs(argumentTypes, argumentSize, firstSlot)
+            weaveArgs(argumentTypes, argumentSize, firstSlot)
         }
 
         super.visitMethodInsn(
@@ -119,7 +123,7 @@ internal class SwordAdapter(
 
         val returnTypeSort = returnType.sort
         if (isPrimitiveType(returnTypeSort)) {
-            wavePrimitiveReturn(returnTypeSort)
+            weavePrimitiveReturn(returnTypeSort)
         } else {
             val internalName = returnType.internalName
             super.visitTypeInsn(Opcodes.CHECKCAST, internalName)
@@ -127,7 +131,7 @@ internal class SwordAdapter(
         }
     }
 
-    private fun waveArgs(
+    private fun weaveArgs(
         argumentTypes: Array<Type>,
         argumentSize: Int,
         firstSlot: Int
@@ -144,7 +148,7 @@ internal class SwordAdapter(
 
             slot += argType.size
             if (isPrimitiveType(argTypeSort)) {
-                wavePrimitiveMethodInvoke(argTypeSort)
+                weavePrimitiveMethodInvoke(argTypeSort)
             }
 
             super.visitInsn(Opcodes.AASTORE)
@@ -187,7 +191,7 @@ internal class SwordAdapter(
         return sort >= Type.BOOLEAN && sort <= Type.DOUBLE
     }
 
-    private fun wavePrimitiveMethodInvoke(sort: Int) {
+    private fun weavePrimitiveMethodInvoke(sort: Int) {
         when (sort) {
             Type.BOOLEAN -> {
                 super.visitMethodInsn(
@@ -264,7 +268,7 @@ internal class SwordAdapter(
         }
     }
 
-    private fun wavePrimitiveReturn(sort: Int) {
+    private fun weavePrimitiveReturn(sort: Int) {
         when (sort) {
             Type.BOOLEAN -> {
                 super.visitTypeInsn(Opcodes.CHECKCAST, "java/lang/Boolean")
