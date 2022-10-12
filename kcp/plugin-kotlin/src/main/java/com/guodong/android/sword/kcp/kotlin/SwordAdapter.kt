@@ -122,12 +122,18 @@ internal class SwordAdapter(
         )
 
         val returnTypeSort = returnType.sort
-        if (isPrimitiveType(returnTypeSort)) {
-            weavePrimitiveReturn(returnTypeSort)
-        } else {
-            val internalName = returnType.internalName
-            super.visitTypeInsn(Opcodes.CHECKCAST, internalName)
-            super.visitInsn(Opcodes.ARETURN)
+        when {
+            returnTypeSort == Type.VOID -> {
+                super.visitInsn(Opcodes.RETURN)
+            }
+            isPrimitiveType(returnTypeSort) -> {
+                weavePrimitiveReturn(returnTypeSort)
+            }
+            else -> {
+                val internalName = returnType.internalName
+                super.visitTypeInsn(Opcodes.CHECKCAST, internalName)
+                super.visitInsn(Opcodes.ARETURN)
+            }
         }
     }
 
