@@ -40,7 +40,9 @@ internal class SwordClassBuilder(
             function.isInfix ||
             function.isInline ||
             function.isSuspend ||
-            function.isTailrec
+            function.isTailrec ||
+            function.isExpect ||
+            function.isExternal
         ) {
             return newMethod
         }

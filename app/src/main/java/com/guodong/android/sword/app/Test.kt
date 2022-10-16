@@ -1,5 +1,6 @@
 package com.guodong.android.sword.app
 
+import android.util.Log
 import com.guodong.android.sword.api.kt.Proxy
 
 /**
@@ -8,13 +9,13 @@ import com.guodong.android.sword.api.kt.Proxy
 class Test {
 
     @Proxy(
-        enable = BuildConfig.isDebug,
+        enable = true,
         handler = HandlerFqName.GET_TEXT_NO_ARG
     )
     fun getTextNoArg() = "guodongAndroid"
 
     @Proxy(
-        enable = BuildConfig.isDebug,
+        enable = true,
         handler = HandlerFqName.GetTextArgInvocationHandler
     )
     fun getTextArg(
@@ -36,5 +37,51 @@ class Test {
         callback: Callback,
     ): User {
         return User("guodongAndroid-Release", 28)
+    }
+
+    @Proxy(
+        enable = true,
+        handler = HandlerFqName.GetTextArgInvocationHandler
+    )
+    fun testHandler(
+        b: Byte,
+        z: Boolean,
+        c: Char,
+        s: Short,
+    ): User {
+        return User("guodongAndroid-Release", 28)
+    }
+
+    @Proxy(
+        enable = true,
+        handler = HandlerFqName.TEST_INT
+    )
+    fun testInt(): Int {
+        return 1
+    }
+
+    inner class TestInner {
+
+        private val TAG = TestInner::class.java.simpleName
+
+        @Proxy(enable = true, handler = HandlerFqName.GetTextArgInvocationHandler)
+        fun getUser() = User("guodongAndroid-Inner", 28)
+
+        fun anonymousFun() {
+            Runnable {
+
+                @Proxy(enable = true, handler = HandlerFqName.GetTextArgInvocationHandler)
+                fun getUser() = User("guodongAndroid-Anonymous", 28)
+
+                val user = getUser()
+                Log.e(TAG, "anonymousFun: user = $user")
+
+            }.run()
+        }
+    }
+
+    class TestStatic {
+        @Proxy(enable = true, handler = HandlerFqName.GetTextArgInvocationHandler)
+        fun getUser() = User("guodongAndroid-StaticInnerClass", 28)
     }
 }

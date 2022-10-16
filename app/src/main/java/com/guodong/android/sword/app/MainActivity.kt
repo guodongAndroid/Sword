@@ -50,10 +50,37 @@ class MainActivity : AppCompatActivity() {
                 }
             })
         Log.e(TAG, "onCreate: textArg = $textArg")
+
+        val user = test.testHandler(
+            1,
+            false,
+            'A',
+            1
+        )
+        Log.e(TAG, "onCreate: user = $user")
+
+        val testInt = test.testInt()
+        Log.e(TAG, "onCreate: testInt = $testInt")
+
+        val userTopLevel = getUser()
+        Log.e(TAG, "onCreate: TopLevel user = $userTopLevel")
+
+        val userObject = TopLevel.getUser()
+        Log.e(TAG, "onCreate: Object user = $userObject")
+
+        val innerTest = test.TestInner()
+        val userInner = innerTest.getUser()
+        Log.e(TAG, "onCreate: Inner user = $userInner")
+
+        innerTest.anonymousFun()
+
+        val staticClass = Test.TestStatic()
+        val userStatic = staticClass.getUser()
+        Log.e(TAG, "onCreate: StaticInner user = $userStatic")
     }
 
     @Proxy(
-        enable = BuildConfig.isDebug,
+        enable = true,
         handler = HandlerFqName.GET_TEXT_NO_ARG
     )
     private fun getText(text: String): String {
