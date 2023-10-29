@@ -1,11 +1,9 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
-import java.util.Properties
 
 plugins {
     kotlin("jvm")
     kotlin("kapt")
     id("com.github.gmazzo.buildconfig")
-    `maven-publish`
 }
 
 java {
@@ -39,36 +37,10 @@ tasks.register("sourcesJar", Jar::class) {
 }
 
 publishing {
-    publications {
-        create<MavenPublication>("default") {
-            groupId = rootProject.extra["GROUP_ID"].toString()
-            artifactId = project.extra["ARTIFACT_ID"].toString()
-            version = rootProject.extra["PLUGIN_VERSION"].toString()
-            from(components["java"])
-            artifact(tasks["sourcesJar"])
-        }
-    }
-
     repositories {
         maven {
             name = "Local"
             url = rootProject.uri("repo")
         }
-
-        maven {
-
-            // https://github.com/guodongAndroid/maven.git
-            val mavenUrl = uri(getMavenUrl())
-
-            name = "Github"
-            url = mavenUrl
-        }
     }
-}
-
-fun getMavenUrl(): String {
-    val properties = Properties()
-    val dis = rootProject.file("local.properties").inputStream()
-    properties.load(dis)
-    return properties.getProperty("maven.url")
 }

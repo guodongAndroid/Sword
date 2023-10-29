@@ -1,10 +1,43 @@
 # Sword
 
+[![License: Apache 2.0](https://img.shields.io/badge/License-Apache-yellow.svg)](./LICENSE.txt) ![Maven Central](https://img.shields.io/maven-central/v/com.sunxiaodou.kotlin/sword-kcp-gradle-plugin)
+
 使用 kotlin compiler plugin 实现，目前仅作用于 Kotlin 函数，为 Kotlin 函数提供代理实现。
+
+Implemented using kotlin compiler plugin, currently only applicable to Kotlin functions, providing proxy implementation for Kotlin functions.
 
 ## 集成
 
-`def version = 0.0.1`
+`val version = 0.0.2`
+
+### Top-level build.gradle.kts
+
+```kotlin
+plugins {
+    id("com.sunxiaodou.kotlin.sword.kcp") version "${version}" apply false
+    
+    // Option KSP
+    id("com.google.devtools.ksp") version "1.7.10-1.0.6" apply false
+}
+```
+
+### Module-level build.gradle.kts
+
+```kotlin
+plugins {
+    id("com.sunxiaodou.kotlin.sword.kcp")
+    
+    // Option KSP
+    id("com.google.devtools.ksp")
+}
+
+dependencies {
+    implementation("com.sunxiaodou.kotlin:sword-api-kt:${version}")
+    
+    // Option 为标记[InvocationHandler]的子类生成FqName索引类`HandlerFqName`
+    ksp("com.sunxiaodou.kotlin:sword-compiler-ksp:${version}")
+}
+```
 
 ## Api
 

@@ -4,8 +4,6 @@ buildscript {
         google()
         mavenCentral()
         maven(uri("repo"))
-
-        maven("https://raw.githubusercontent.com/guodongAndroid/maven/main/repository/")
     }
     dependencies {
         classpath("com.android.tools.build:gradle:4.1.3")
@@ -17,7 +15,7 @@ buildscript {
 
         // debug
 //        classpath("com.guodong.android:sword-gradle-plugin:${project.PLUGIN_VERSION}")
-        classpath("com.guodong.android:sword-kcp-gradle-plugin:${project.extra["PLUGIN_VERSION"]}")
+//        classpath("com.guodong.android:sword-kcp-gradle-plugin:${project.extra["PLUGIN_VERSION"]}")
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
@@ -29,6 +27,7 @@ plugins {
     id("com.google.devtools.ksp") version "1.7.10-1.0.6" apply false
     id("com.github.gmazzo.buildconfig") version "3.1.0" apply false
     id("com.vanniktech.maven.publish") version "0.22.0" apply false
+    id("com.sunxiaodou.kotlin.sword.kcp") version "0.0.2" apply false
 }
 
 allprojects {
@@ -39,8 +38,12 @@ allprojects {
             dirs("repo")
         }
         maven(uri(rootProject.uri("repo")))
+    }
+}
 
-        maven("https://raw.githubusercontent.com/guodongAndroid/maven/main/repository/")
+subprojects {
+    if (name != "app") {
+        apply(plugin = "com.vanniktech.maven.publish")
     }
 }
 

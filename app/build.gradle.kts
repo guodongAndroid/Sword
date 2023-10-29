@@ -1,7 +1,8 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
-    id("com.guodong.android.sword.kcp")
+//    id("com.guodong.android.sword.kcp")
+    id("com.sunxiaodou.kotlin.sword.kcp")
     id("com.google.devtools.ksp")
 }
 
@@ -70,10 +71,11 @@ dependencies {
     implementation("com.google.android.material:material:1.6.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
 
-    implementation(project(":api-kotlin"))
+    debugImplementation(project(":api-kotlin"))
+    releaseImplementation("com.sunxiaodou.kotlin:sword-api-kt:${project.extra["PLUGIN_VERSION"]}")
 
     kspDebug(project(":compiler:ksp"))
-    kspRelease("com.guodong.android:sword-compiler-ksp:0.0.1")
+    kspRelease("com.sunxiaodou.kotlin:sword-compiler-ksp:${project.extra["PLUGIN_VERSION"]}")
 
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.3")
