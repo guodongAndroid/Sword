@@ -19,7 +19,7 @@ dependencies {
 
 buildConfig {
     packageName("com.guodong.android.sword.kcp.gradle")
-    buildConfigField("String", "KOTLIN_PLUGIN_ID", "\"${rootProject.extra["kotlin_plugin_id"]}\"")
+    buildConfigField("String", "KOTLIN_PLUGIN_ID", "\"${rootProject.extra["KOTLIN_PLUGIN_ID"]}\"")
     buildConfigField("String", "KOTLIN_PLUGIN_GROUP", "\"com.guodong.android\"")
     buildConfigField("String", "KOTLIN_PLUGIN_NAME", "\"sword-kcp-kotlin-plugin\"")
     buildConfigField("String", "KOTLIN_PLUGIN_VERSION", "\"${rootProject.extra["PLUGIN_VERSION"]}\"")
@@ -28,7 +28,7 @@ buildConfig {
 gradlePlugin {
     plugins {
         create("Sword") {
-            id = rootProject.extra["kotlin_plugin_id"] as String
+            id = rootProject.extra["KOTLIN_PLUGIN_ID"] as String
             displayName = "Sword Kcp"
             description = "Sword Kcp"
             implementationClass = "com.guodong.android.sword.kcp.gradle.SwordGradlePlugin"

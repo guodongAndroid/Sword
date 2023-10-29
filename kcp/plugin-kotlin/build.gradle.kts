@@ -22,7 +22,7 @@ dependencies {
 
 buildConfig {
     packageName("com.guodong.android.sword.kcp.kotlin")
-    buildConfigField("String", "KOTLIN_PLUGIN_ID", "\"${rootProject.extra["kotlin_plugin_id"]}\"")
+    buildConfigField("String", "KOTLIN_PLUGIN_ID", "\"${rootProject.extra["KOTLIN_PLUGIN_ID"]}\"")
 }
 
 tasks.withType<KotlinCompile> {
