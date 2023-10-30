@@ -1,6 +1,6 @@
 # Sword
 
-[![License: Apache 2.0](https://img.shields.io/badge/License-Apache-yellow.svg)](./LICENSE.txt) ![Maven Central](https://img.shields.io/maven-central/v/com.sunxiaodou.kotlin/sword-kcp-gradle-plugin)
+[![License: Apache 2.0](https://img.shields.io/badge/License-Apache-yellow.svg)](./LICENSE.txt) [![Maven Central](https://img.shields.io/maven-central/v/com.sunxiaodou.kotlin/sword-kcp-gradle-plugin)](https://central.sonatype.com/artifact/com.sunxiaodou.kotlin/sword-kcp-gradle-plugin)
 
 使用 kotlin compiler plugin 实现，目前仅作用于 Kotlin 函数，为 Kotlin 函数提供代理实现。
 
