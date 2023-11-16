@@ -3,7 +3,7 @@ buildscript {
     repositories {
         google()
         mavenCentral()
-        maven(uri("repo"))
+        maven(rootProject.uri("repo"))
     }
     dependencies {
         classpath("com.android.tools.build:gradle:4.1.3")
@@ -34,10 +34,7 @@ allprojects {
     repositories {
         google()
         mavenCentral()
-        flatDir {
-            dirs("repo")
-        }
-        maven(uri(rootProject.uri("repo")))
+        maven(rootProject.uri("repo"))
     }
 }
 
