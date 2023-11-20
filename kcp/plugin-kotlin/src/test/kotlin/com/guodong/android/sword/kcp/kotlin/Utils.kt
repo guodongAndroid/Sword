@@ -45,11 +45,33 @@ fun runTest(clazz: Class<*>): Any? {
     return clazz.getDeclaredMethod("test").invoke(instance)
 }
 
+fun runTopLevelTest(clazz: Class<*>): Any? {
+    return clazz.getDeclaredMethod("test").invoke(null)
+}
+
+fun runObjectTest(clazz: Class<*>): Any? {
+    val instanceField = clazz.getDeclaredField("INSTANCE")
+    val instance = instanceField.get(null)
+    return clazz.getDeclaredMethod("test").invoke(instance)
+}
+
+fun runInnerTest(outerClazz: Class<*>, clazz: Class<*>): Any? {
+    val outerClassConstructor = outerClazz.getDeclaredConstructor()
+    val outerClassInstance = outerClassConstructor.newInstance()
+    val instance = clazz.getDeclaredConstructor(outerClazz).newInstance(outerClassInstance)
+    return clazz.getDeclaredMethod("test").invoke(instance)
+}
+
 fun captureStdOut(block: () -> Unit): String {
     val originalStdOut = System.out
     val originalStdErr = System.err
     val stdOutStream = ByteArrayOutputStream()
-    val printStream = PrintStream(stdOutStream)
+    val printStream = object : PrintStream(stdOutStream) {
+        override fun println(x: Any?) {
+            originalStdOut.println(x)
+            super.println(x)
+        }
+    }
     System.setOut(printStream)
     System.setErr(printStream)
     try {
