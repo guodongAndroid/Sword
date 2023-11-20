@@ -8,13 +8,15 @@ Implemented using kotlin compiler plugin, currently only applicable to Kotlin fu
 
 ## 集成
 
-`val version = 0.0.2`
+| Kotlin | Sword | PluginId                          |
+| :----: | :---: | :-------------------------------- |
+| 1.7.10 | 0.0.2 | `com.sunxiaodou.kotlin.sword.kcp` |
 
 ### Top-level build.gradle.kts
 
 ```kotlin
 plugins {
-    id("com.sunxiaodou.kotlin.sword.kcp") version "${version}" apply false
+    id("com.sunxiaodou.kotlin.sword.kcp") version "<latest-version>" apply false
     
     // Option KSP
     id("com.google.devtools.ksp") version "1.7.10-1.0.6" apply false
@@ -32,10 +34,10 @@ plugins {
 }
 
 dependencies {
-    implementation("com.sunxiaodou.kotlin:sword-api-kt:${version}")
+    implementation("com.sunxiaodou.kotlin:sword-api-kt:<latest-version>")
     
     // Option 为标记[InvocationHandler]的子类生成FqName索引类`HandlerFqName`
-    ksp("com.sunxiaodou.kotlin:sword-compiler-ksp:${version}")
+    ksp("com.sunxiaodou.kotlin:sword-compiler-ksp:<latest-version>")
 }
 ```
 
