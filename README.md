@@ -8,9 +8,10 @@ Implemented using kotlin compiler plugin, currently only applicable to Kotlin fu
 
 ## 集成
 
-| Kotlin | Sword | PluginId                          |
-| :----: | :---: | :-------------------------------- |
-| 1.7.10 | 0.0.2 | `com.sunxiaodou.kotlin.sword.kcp` |
+| Kotlin | KSP           | Sword | PluginId                          |
+| :----- | :------------ | :---- | :-------------------------------- |
+| 1.8.22 | 1.8.22-1.0.11 | 0.0.3 | `com.sunxiaodou.kotlin.sword.kcp` |
+| 1.7.10 | 1.7.10-1.0.6  | 0.0.2 | `com.sunxiaodou.kotlin.sword.kcp` |
 
 ### Top-level build.gradle.kts
 
@@ -19,7 +20,7 @@ plugins {
     id("com.sunxiaodou.kotlin.sword.kcp") version "<latest-version>" apply false
     
     // Option KSP
-    id("com.google.devtools.ksp") version "1.7.10-1.0.6" apply false
+    id("com.google.devtools.ksp") version "<ksp-version>" apply false
 }
 ```
 
