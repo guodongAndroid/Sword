@@ -35,7 +35,7 @@ fun swordKotlinCompilation(
             SourceFile.kotlin(testName.plus(KT_EXTENSION), testSource),
             SourceFile.kotlin(handlerName.plus(KT_EXTENSION), handlerSource)
         )
-        compilerPlugins = listOf(SwordComponentRegistrar())
+        compilerPluginRegistrars = listOf(SwordCompilerPluginRegistrar())
         inheritClassPath = true
     }
 }

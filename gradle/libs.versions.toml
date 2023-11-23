@@ -1,0 +1,55 @@
+[versions]
+android-gradle-plugin = "7.4.2"
+androidx-core = "1.7.0"
+androidx-appcompat = "1.4.1"
+
+google-android-material = "1.6.0"
+google-auto-service = "1.0.1"
+google-ksp = "1.8.22-1.0.11"
+
+build-config = "3.0.3"
+maven-publish = "0.22.0"
+kotlin = "1.8.22"
+kotlin-android-plugin = "1.8.22"
+kotlin-poet = "1.14.2"
+koltin-poet-ksp = "1.12.0"
+kotlin-compile-test = "1.5.0"
+
+plugin = "0.0.3-SNAPSHOT"
+
+[libraries]
+android-gradle-plugin = { module = "com.android.tools.build:gradle", version.ref = "android-gradle-plugin" }
+
+androidx-core-ktx = { module = "androidx.core:core-ktx", version.ref = "androidx-core" }
+androidx-appcompat = { module = "androidx.appcompat:appcompat", version.ref = "androidx-appcompat" }
+
+google-android-material = { module = "com.google.android.material:material", version.ref = "google-android-material" }
+google-auto-service = { module = "com.google.auto.service:auto-service", version.ref = "google-auto-service" }
+google-auto-service-annotations = { module = "com.google.auto.service:auto-service-annotations", version.ref = "google-auto-service" }
+google-ksp-api = { module = "com.google.devtools.ksp:symbol-processing-api", version.ref = "google-ksp" }
+
+kotlin-compiler-embeddable = { module = "org.jetbrains.kotlin:kotlin-compiler-embeddable", version.ref = "kotlin" }
+kotlin-poet = { module = "com.squareup:kotlinpoet", version.ref = "kotlin-poet" }
+kotlin-poet-ksp = { module = "com.squareup:kotlinpoet-ksp", version.ref = "koltin-poet-ksp" }
+kotlin-test-junit = { module = "org.jetbrains.kotlin:kotlin-test-junit", version.ref = "kotlin" }
+kotlin-compile-testing = { module = "com.github.tschuchortdev:kotlin-compile-testing", version.ref = "kotlin-compile-test" }
+kotlin-compile-testing-ksp = { module = "com.github.tschuchortdev:kotlin-compile-testing-ksp", version.ref = "kotlin-compile-test" }
+
+sword-api-kotlin = { group = "com.sunxiaodou.kotlin", name = "sword-api-kt", version.ref = "plugin" }
+sword-compiler-ksp = { group = "com.sunxiaodou.kotlin", name = "sword-compiler-ksp", version.ref = "plugin" }
+
+[plugins]
+kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin-android-plugin" }
+kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
+kotlin-kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin" }
+
+google-ksp = { id = "com.google.devtools.ksp", version.ref = "google-ksp" }
+
+android-application = { id = "com.android.application", version.ref = "android-gradle-plugin" }
+build-config = { id = "com.github.gmazzo.buildconfig", version.ref = "build-config" }
+maven-publish = { id = "com.vanniktech.maven.publish", version.ref = "maven-publish" }
+
+sword = { id = "com.sunxiaodou.kotlin.sword.kcp", version.ref = "plugin" }
+
+[bundles]
+

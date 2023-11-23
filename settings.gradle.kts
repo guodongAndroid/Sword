@@ -7,6 +7,14 @@ pluginManagement {
     }
 }
 
+dependencyResolutionManagement {
+    repositories {
+        google()
+        mavenCentral()
+        maven(uri("repo"))
+    }
+}
+
 rootProject.name = "Sword"
 include(":app")
 include(":api-kotlin")

@@ -13,7 +13,7 @@ import org.jetbrains.kotlin.gradle.plugin.SubpluginOption
 class SwordGradlePlugin : KotlinCompilerPluginSupportPlugin {
 
     override fun apply(target: Project) = with(target) {
-        logger.error("Welcome to guodongAndroid sword kcp gradle plugin.")
+        logger.error("Welcome to guodongAndroid sword kcp gradle plugin (${BuildConfig.KOTLIN_PLUGIN_VERSION}).")
     }
 
     override fun isApplicable(kotlinCompilation: KotlinCompilation<*>): Boolean = true

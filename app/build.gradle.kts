@@ -1,9 +1,8 @@
 plugins {
-    id("com.android.application")
-    id("org.jetbrains.kotlin.android")
-//    id("com.guodong.android.sword.kcp")
-    id("com.sunxiaodou.kotlin.sword.kcp")
-    id("com.google.devtools.ksp")
+    alias(libs.plugins.android.application)
+    alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.sword)
+    alias(libs.plugins.google.ksp)
 }
 
 android {
@@ -66,18 +65,13 @@ ksp {
 
 dependencies {
 
-    implementation("androidx.core:core-ktx:1.7.0")
-    implementation("androidx.appcompat:appcompat:1.4.1")
-    implementation("com.google.android.material:material:1.6.0")
-    implementation("androidx.constraintlayout:constraintlayout:2.1.4")
+    implementation(libs.androidx.core.ktx)
+    implementation(libs.androidx.appcompat)
+    implementation(libs.google.android.material)
 
     debugImplementation(project(":api-kotlin"))
-    releaseImplementation("com.sunxiaodou.kotlin:sword-api-kt:${project.extra["PLUGIN_VERSION"]}")
+    releaseImplementation(libs.sword.api.kotlin)
 
     kspDebug(project(":compiler:ksp"))
-    kspRelease("com.sunxiaodou.kotlin:sword-compiler-ksp:${project.extra["PLUGIN_VERSION"]}")
-
-    testImplementation("junit:junit:4.13.2")
-    androidTestImplementation("androidx.test.ext:junit:1.1.3")
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.4.0")
+    kspRelease(libs.sword.compiler.ksp)
 }

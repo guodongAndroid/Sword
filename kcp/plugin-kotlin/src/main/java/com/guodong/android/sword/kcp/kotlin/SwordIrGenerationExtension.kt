@@ -5,6 +5,7 @@ import org.jetbrains.kotlin.backend.common.extensions.IrPluginContext
 import org.jetbrains.kotlin.cli.common.messages.CompilerMessageSeverity
 import org.jetbrains.kotlin.cli.common.messages.MessageCollector
 import org.jetbrains.kotlin.ir.declarations.IrModuleFragment
+import org.jetbrains.kotlin.name.ClassId
 import org.jetbrains.kotlin.name.FqName
 
 class SwordIrGenerationExtension(
@@ -20,7 +21,7 @@ class SwordIrGenerationExtension(
         )
 
         val proxyAnnotation =
-            pluginContext.referenceClass(proxyAnnotationFqName)
+            pluginContext.referenceClass(ClassId.topLevel(proxyAnnotationFqName))
         if (proxyAnnotation == null) {
             messageCollector.report(
                 CompilerMessageSeverity.ERROR,

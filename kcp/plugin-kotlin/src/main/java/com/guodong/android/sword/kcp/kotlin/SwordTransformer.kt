@@ -15,7 +15,10 @@ import org.jetbrains.kotlin.ir.expressions.IrTypeOperator
 import org.jetbrains.kotlin.ir.symbols.IrClassSymbol
 import org.jetbrains.kotlin.ir.types.typeWith
 import org.jetbrains.kotlin.ir.util.*
+import org.jetbrains.kotlin.name.CallableId
+import org.jetbrains.kotlin.name.ClassId
 import org.jetbrains.kotlin.name.FqName
+import org.jetbrains.kotlin.name.Name
 
 class SwordTransformer(
     private val pluginContext: IrPluginContext,
@@ -31,7 +34,12 @@ class SwordTransformer(
     private val stringType = pluginContext.irBuiltIns.stringType
     private val arrayAnyNType = pluginContext.irBuiltIns.arrayClass.typeWith(anyNType)
     private val emptyArraySymbol =
-        pluginContext.referenceFunctions(FqName("kotlin.emptyArray")).first()
+        pluginContext.referenceFunctions(
+            CallableId(
+                FqName("kotlin"),
+                Name.identifier("emptyArray")
+            )
+        ).first()
     private val arrayOfSymbol = pluginContext.irBuiltIns.arrayOf
 
     private val jvmNameAnnotationFqName = FqName("kotlin.jvm.JvmName")
@@ -131,9 +139,11 @@ class SwordTransformer(
                     className
                 }
             }
+
             parentClassOrNull != null -> {
                 parentClassOrNull.name.asString()
             }
+
             fileOrNull != null -> {
                 val annotations = fileOrNull.annotations
                 if (annotations.hasAnnotation(jvmNameAnnotationFqName)) {
@@ -148,6 +158,7 @@ class SwordTransformer(
                     fileOrNull.name
                 }
             }
+
             else -> "Unknown"
         }
     }
@@ -161,12 +172,18 @@ class SwordTransformer(
         return DeclarationIrBuilder(pluginContext, function.symbol).irBlockBody {
 
             val handlerConstructorSymbol =
-                pluginContext.referenceConstructors(FqName(param.handler)).single {
-                    it.owner.valueParameters.isEmpty()
-                }
+                pluginContext.referenceConstructors(ClassId.topLevel(FqName(param.handler)))
+                    .single {
+                        it.owner.valueParameters.isEmpty()
+                    }
 
             val invokeSymbol =
-                pluginContext.referenceFunctions(FqName("${param.handler}.$INVOKE_METHOD_NAME"))
+                pluginContext.referenceFunctions(
+                    CallableId(
+                        FqName(param.handler),
+                        Name.identifier(INVOKE_METHOD_NAME)
+                    )
+                )
                     .single {
                         val valueParameters = it.owner.valueParameters
                         valueParameters.size == 3 &&

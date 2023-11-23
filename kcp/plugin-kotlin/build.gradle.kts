@@ -1,9 +1,9 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    kotlin("jvm")
-    kotlin("kapt")
-    id("com.github.gmazzo.buildconfig")
+    alias(libs.plugins.kotlin.jvm)
+    alias(libs.plugins.kotlin.kapt)
+    alias(libs.plugins.build.config)
 }
 
 java {
@@ -12,32 +12,29 @@ java {
 }
 
 dependencies {
-    compileOnly("org.jetbrains.kotlin:kotlin-compiler-embeddable")
+    compileOnly(libs.kotlin.compiler.embeddable)
 
-    kapt("com.google.auto.service:auto-service:1.0.1")
-    compileOnly("com.google.auto.service:auto-service-annotations:1.0.1")
+    kapt(libs.google.auto.service)
+    compileOnly(libs.google.auto.service.annotations)
 
     testImplementation(project(":api-kotlin"))
-    testImplementation(kotlin("test-junit"))
-    testImplementation("com.github.tschuchortdev:kotlin-compile-testing:1.4.9")
+    testImplementation(libs.kotlin.test.junit)
+    testImplementation(libs.kotlin.compile.testing)
 }
 
 buildConfig {
     packageName("com.guodong.android.sword.kcp.kotlin")
     buildConfigField("String", "KOTLIN_PLUGIN_ID", "\"${rootProject.extra["KOTLIN_PLUGIN_ID"]}\"")
+    buildConfigField("String", "KOTLIN_PLUGIN_VERSION", "\"${rootProject.extra["VERSION_NAME"]}\"")
 }
 
 tasks.withType<KotlinCompile> {
-    kotlinOptions.jvmTarget = "1.8"
-}
-
-tasks.register("sourcesJar", Jar::class) {
-    group = "build"
-    description = "Assembles Kotlin sources"
-
-    archiveClassifier.set("sources")
-    from(sourceSets.main.get().allSource)
-    dependsOn(tasks.classes)
+    kotlinOptions {
+        jvmTarget = "1.8"
+        freeCompilerArgs += listOf(
+            "-opt-in=org.jetbrains.kotlin.compiler.plugin.ExperimentalCompilerApi",
+        )
+    }
 }
 
 publishing {

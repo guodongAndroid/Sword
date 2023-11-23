@@ -1,5 +1,5 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
-buildscript {
+/*buildscript {
     repositories {
         google()
         mavenCentral()
@@ -20,14 +20,17 @@ buildscript {
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
     }
-}
+}*/
 
 plugins {
-    kotlin("jvm") version "1.7.10" apply false
-    id("com.google.devtools.ksp") version "1.7.10-1.0.6" apply false
-    id("com.github.gmazzo.buildconfig") version "3.1.0" apply false
-    id("com.vanniktech.maven.publish") version "0.22.0" apply false
-    id("com.sunxiaodou.kotlin.sword.kcp") version "0.0.2" apply false
+    alias(libs.plugins.kotlin.jvm) apply false
+    alias(libs.plugins.kotlin.android) apply false
+    alias(libs.plugins.kotlin.kapt) apply false
+    alias(libs.plugins.google.ksp) apply false
+    alias(libs.plugins.android.application) apply false
+    alias(libs.plugins.build.config) apply false
+    alias(libs.plugins.maven.publish) apply false
+    alias(libs.plugins.sword) apply false
 }
 
 allprojects {

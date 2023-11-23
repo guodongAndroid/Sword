@@ -2,8 +2,8 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
     id("java-gradle-plugin")
-    kotlin("jvm")
-    id("com.github.gmazzo.buildconfig")
+    alias(libs.plugins.kotlin.jvm)
+    alias(libs.plugins.build.config)
 }
 
 java {
@@ -18,9 +18,9 @@ dependencies {
 buildConfig {
     packageName("com.guodong.android.sword.kcp.gradle")
     buildConfigField("String", "KOTLIN_PLUGIN_ID", "\"${rootProject.extra["KOTLIN_PLUGIN_ID"]}\"")
-    buildConfigField("String", "KOTLIN_PLUGIN_GROUP", "\"com.guodong.android\"")
+    buildConfigField("String", "KOTLIN_PLUGIN_GROUP", "\"com.sunxiaodou.kotlin\"")
     buildConfigField("String", "KOTLIN_PLUGIN_NAME", "\"sword-kcp-kotlin-plugin\"")
-    buildConfigField("String", "KOTLIN_PLUGIN_VERSION", "\"${rootProject.extra["PLUGIN_VERSION"]}\"")
+    buildConfigField("String", "KOTLIN_PLUGIN_VERSION", "\"${rootProject.extra["VERSION_NAME"]}\"")
 }
 
 gradlePlugin {
