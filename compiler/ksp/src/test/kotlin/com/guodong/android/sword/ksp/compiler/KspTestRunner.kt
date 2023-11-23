@@ -11,5 +11,5 @@ import org.junit.runners.Suite.SuiteClasses
 @SuiteClasses(
     TestProxyHandler::class,
 )
-class TestRunner {
+class KspTestRunner {
 }

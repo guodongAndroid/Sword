@@ -20,5 +20,5 @@ import org.junit.runners.Suite.SuiteClasses
     TestReferenceArg::class,
     TestTopLevelAndObject::class,
 )
-class TestRunner {
+class KcpTestRunner {
 }
