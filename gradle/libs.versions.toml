@@ -15,6 +15,8 @@ kotlin-poet = "1.14.2"
 koltin-poet-ksp = "1.12.0"
 kotlin-compile-test = "1.5.0"
 
+gradle-plugin-publish = "1.2.1"
+
 plugin = "0.0.3-SNAPSHOT"
 
 [libraries]
@@ -42,6 +44,8 @@ sword-compiler-ksp = { group = "com.sunxiaodou.kotlin", name = "sword-compiler-k
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin-android-plugin" }
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 kotlin-kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin" }
+
+gradle-plugin-publish = { id = "com.gradle.plugin-publish", version.ref = "gradle-plugin-publish" }
 
 google-ksp = { id = "com.google.devtools.ksp", version.ref = "google-ksp" }
 

@@ -1,7 +1,7 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    id("java-gradle-plugin")
+    alias(libs.plugins.gradle.plugin.publish)
     alias(libs.plugins.kotlin.jvm)
     alias(libs.plugins.build.config)
 }
@@ -25,11 +25,15 @@ buildConfig {
 
 gradlePlugin {
     plugins {
+        vcsUrl.set("https://github.com/guodongAndroid/Sword")
+        website.set(vcsUrl)
+
         create("Sword") {
             id = rootProject.extra["KOTLIN_PLUGIN_ID"] as String
             displayName = "Sword Kcp"
             description = "Sword Kcp"
             implementationClass = "com.guodong.android.sword.kcp.gradle.SwordGradlePlugin"
+            tags.addAll("sword", "proxy", "kotlin", "kcp")
         }
     }
 }
