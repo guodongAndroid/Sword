@@ -49,14 +49,16 @@ android {
         jvmTarget = "1.8"
     }
 
-    sourceSets {
+    // https://kotlinlang.org/docs/ksp-quickstart.html#make-ide-aware-of-generated-code
+    // Generated source files are registered automatically since KSP 1.8.0-1.0.9.
+    /*sourceSets {
         named("debug") {
             java.srcDirs("build/generated/ksp/debug/kotlin")
         }
         named("release") {
             java.srcDirs("build/generated/ksp/release/kotlin")
         }
-    }
+    }*/
 }
 
 ksp {

@@ -4,10 +4,7 @@ plugins {
     alias(libs.plugins.kotlin.jvm)
 }
 
-java {
-    sourceCompatibility = JavaVersion.VERSION_1_8
-    targetCompatibility = JavaVersion.VERSION_1_8
-}
+java.toolchain.languageVersion.set(JavaLanguageVersion.of(libs.versions.java.get()))
 
 dependencies {
     implementation(libs.google.ksp.api)
@@ -23,10 +20,10 @@ dependencies {
 
 tasks.withType<KotlinCompile> {
     kotlinOptions {
-        jvmTarget = "1.8"
         freeCompilerArgs = listOf(
-            "-Xopt-in=com.squareup.kotlinpoet.ksp.KotlinPoetKspPreview",
-            "-Xopt-in=com.google.devtools.ksp.KspExperimental"
+            "-opt-in=com.squareup.kotlinpoet.ksp.KotlinPoetKspPreview",
+            "-opt-in=com.google.devtools.ksp.KspExperimental",
+            "-opt-in=org.jetbrains.kotlin.compiler.plugin.ExperimentalCompilerApi",
         )
     }
 }

@@ -1,23 +1,25 @@
 [versions]
+java = "11"
+
 android-gradle-plugin = "7.4.2"
 androidx-core = "1.7.0"
 androidx-appcompat = "1.4.1"
 
 google-android-material = "1.6.0"
-google-auto-service = "1.0.1"
-google-ksp = "1.8.22-1.0.11"
+google-auto-service = "1.1.1"
+google-ksp = "1.9.20-1.0.14"
 
 build-config = "3.0.3"
-maven-publish = "0.22.0"
-kotlin = "1.8.22"
-kotlin-android-plugin = "1.8.22"
-kotlin-poet = "1.14.2"
+maven-publish = "0.25.3"
+kotlin = "1.9.20"
+kotlin-android-plugin = "1.9.20"
+kotlin-poet = "1.15.1"
 koltin-poet-ksp = "1.12.0"
-kotlin-compile-test = "1.5.0"
+kotlin-compile-test = "0.4.0"
 
 gradle-plugin-publish = "1.2.1"
 
-plugin = "0.0.3-SNAPSHOT"
+plugin = "0.0.4-SNAPSHOT"
 
 [libraries]
 android-gradle-plugin = { module = "com.android.tools.build:gradle", version.ref = "android-gradle-plugin" }
@@ -34,8 +36,8 @@ kotlin-compiler-embeddable = { module = "org.jetbrains.kotlin:kotlin-compiler-em
 kotlin-poet = { module = "com.squareup:kotlinpoet", version.ref = "kotlin-poet" }
 kotlin-poet-ksp = { module = "com.squareup:kotlinpoet-ksp", version.ref = "koltin-poet-ksp" }
 kotlin-test-junit = { module = "org.jetbrains.kotlin:kotlin-test-junit", version.ref = "kotlin" }
-kotlin-compile-testing = { module = "com.github.tschuchortdev:kotlin-compile-testing", version.ref = "kotlin-compile-test" }
-kotlin-compile-testing-ksp = { module = "com.github.tschuchortdev:kotlin-compile-testing-ksp", version.ref = "kotlin-compile-test" }
+kotlin-compile-testing = { module = "dev.zacsweers.kctfork:core", version.ref = "kotlin-compile-test" }
+kotlin-compile-testing-ksp = { module = "dev.zacsweers.kctfork:ksp", version.ref = "kotlin-compile-test" }
 
 sword-api-kotlin = { group = "com.sunxiaodou.kotlin", name = "sword-api-kt", version.ref = "plugin" }
 sword-compiler-ksp = { group = "com.sunxiaodou.kotlin", name = "sword-compiler-ksp", version.ref = "plugin" }

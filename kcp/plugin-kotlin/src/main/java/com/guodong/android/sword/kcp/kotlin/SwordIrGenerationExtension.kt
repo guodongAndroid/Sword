@@ -17,7 +17,7 @@ class SwordIrGenerationExtension(
     override fun generate(moduleFragment: IrModuleFragment, pluginContext: IrPluginContext) {
         messageCollector.report(
             CompilerMessageSeverity.WARNING,
-            "Welcome to guodongAndroid sword kcp kotlin ir plugin"
+            "Welcome to guodongAndroid sword kcp kotlin ir generation extension"
         )
 
         val proxyAnnotation =

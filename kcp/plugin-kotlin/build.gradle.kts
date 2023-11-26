@@ -6,10 +6,7 @@ plugins {
     alias(libs.plugins.build.config)
 }
 
-java {
-    sourceCompatibility = JavaVersion.VERSION_1_8
-    targetCompatibility = JavaVersion.VERSION_1_8
-}
+java.toolchain.languageVersion.set(JavaLanguageVersion.of(libs.versions.java.get()))
 
 dependencies {
     compileOnly(libs.kotlin.compiler.embeddable)
@@ -30,7 +27,6 @@ buildConfig {
 
 tasks.withType<KotlinCompile> {
     kotlinOptions {
-        jvmTarget = "1.8"
         freeCompilerArgs += listOf(
             "-opt-in=org.jetbrains.kotlin.compiler.plugin.ExperimentalCompilerApi",
         )

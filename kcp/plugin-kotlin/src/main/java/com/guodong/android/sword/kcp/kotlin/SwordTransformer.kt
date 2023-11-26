@@ -6,15 +6,26 @@ import org.jetbrains.kotlin.backend.common.lower.DeclarationIrBuilder
 import org.jetbrains.kotlin.cli.common.messages.CompilerMessageSeverity
 import org.jetbrains.kotlin.cli.common.messages.MessageCollector
 import org.jetbrains.kotlin.ir.IrStatement
-import org.jetbrains.kotlin.ir.builders.*
-import org.jetbrains.kotlin.ir.declarations.*
+import org.jetbrains.kotlin.ir.builders.IrBuilderWithScope
+import org.jetbrains.kotlin.ir.builders.irBlockBody
+import org.jetbrains.kotlin.ir.builders.irCall
+import org.jetbrains.kotlin.ir.builders.irCallConstructor
+import org.jetbrains.kotlin.ir.builders.irGet
+import org.jetbrains.kotlin.ir.builders.irReturn
+import org.jetbrains.kotlin.ir.builders.irString
+import org.jetbrains.kotlin.ir.builders.irVararg
+import org.jetbrains.kotlin.ir.builders.typeOperator
+import org.jetbrains.kotlin.ir.declarations.IrFunction
+import org.jetbrains.kotlin.ir.declarations.IrSimpleFunction
 import org.jetbrains.kotlin.ir.expressions.IrBlockBody
 import org.jetbrains.kotlin.ir.expressions.IrCall
 import org.jetbrains.kotlin.ir.expressions.IrConst
 import org.jetbrains.kotlin.ir.expressions.IrTypeOperator
 import org.jetbrains.kotlin.ir.symbols.IrClassSymbol
 import org.jetbrains.kotlin.ir.types.typeWith
-import org.jetbrains.kotlin.ir.util.*
+import org.jetbrains.kotlin.ir.util.hasAnnotation
+import org.jetbrains.kotlin.ir.util.isAnnotation
+import org.jetbrains.kotlin.ir.util.isSuspend
 import org.jetbrains.kotlin.name.CallableId
 import org.jetbrains.kotlin.name.ClassId
 import org.jetbrains.kotlin.name.FqName
@@ -42,7 +53,6 @@ class SwordTransformer(
         ).first()
     private val arrayOfSymbol = pluginContext.irBuiltIns.arrayOf
 
-    private val jvmNameAnnotationFqName = FqName("kotlin.jvm.JvmName")
     private val proxyAnnotationFqName = FqName("com.guodong.android.sword.api.kt.Proxy")
 
     override fun visitFunctionNew(declaration: IrFunction): IrStatement {
@@ -81,7 +91,7 @@ class SwordTransformer(
             }
         }
 
-        val className: String = getClassName(declaration)
+        val className: String = declaration.className
         val methodName = declaration.name.asString()
 
         /*messageCollector.report(
@@ -118,49 +128,6 @@ class SwordTransformer(
         }
 
         return super.visitFunctionNew(declaration)
-    }
-
-    private fun getClassName(
-        declaration: IrFunction,
-    ): String {
-        val parentClassOrNull = declaration.parentClassOrNull
-        val fileOrNull = declaration.fileOrNull
-
-        return when {
-            declaration.isLocal -> {
-                val className = buildString {
-                    renderParentOfReferencedDeclaration(declaration)
-                }
-
-                // 截取第一位的"."
-                if (className.isNotEmpty()) {
-                    className.substring(1)
-                } else {
-                    className
-                }
-            }
-
-            parentClassOrNull != null -> {
-                parentClassOrNull.name.asString()
-            }
-
-            fileOrNull != null -> {
-                val annotations = fileOrNull.annotations
-                if (annotations.hasAnnotation(jvmNameAnnotationFqName)) {
-                    val annotation = annotations.findAnnotation(jvmNameAnnotationFqName)!!
-                    val expression = annotation.getValueArgument(0)
-                    if (expression != null && expression is IrConst<*>) {
-                        expression.value as String
-                    } else {
-                        fileOrNull.name
-                    }
-                } else {
-                    fileOrNull.name
-                }
-            }
-
-            else -> "Unknown"
-        }
     }
 
     private fun irSword(
@@ -223,35 +190,4 @@ class SwordTransformer(
             }
         }
     }
-
-    private fun StringBuilder.renderParentOfReferencedDeclaration(declaration: IrDeclaration) {
-        val parent = try {
-            declaration.parent
-        } catch (e: Exception) {
-            append("<no parent>")
-            return
-        }
-        when (parent) {
-            /*is IrPackageFragment -> {
-                val fqn = parent.fqName.asString()
-                append(fqn.ifEmpty { "<root>" })
-            }*/
-            is IrDeclaration -> {
-                renderParentOfReferencedDeclaration(parent)
-                append('.')
-                if (parent is IrDeclarationWithName) {
-                    append(parent.name)
-                }/* else {
-                    renderElementNameFallback(parent)
-                }*/
-            }
-            /*else -> renderElementNameFallback(parent)*/
-        }
-    }
-
-    /*private fun StringBuilder.renderElementNameFallback(element: Any) {
-        append('{')
-        append(element.javaClass.simpleName)
-        append('}')
-    }*/
 }
