@@ -1,11 +1,11 @@
 [versions]
 java = "11"
 
-android-gradle-plugin = "7.4.2"
-androidx-core = "1.7.0"
-androidx-appcompat = "1.4.1"
+android-gradle-plugin = "8.2.0"
+androidx-core = "1.12.0"
+androidx-appcompat = "1.6.1"
 
-google-android-material = "1.6.0"
+google-android-material = "1.11.0"
 google-auto-service = "1.1.1"
 google-ksp = "1.9.21-1.0.15"
 
@@ -33,7 +33,7 @@ google-ksp-api = { module = "com.google.devtools.ksp:symbol-processing-api", ver
 
 kotlin-compiler-embeddable = { module = "org.jetbrains.kotlin:kotlin-compiler-embeddable", version.ref = "kotlin" }
 kotlin-poet = { module = "com.squareup:kotlinpoet", version.ref = "kotlin-poet" }
-kotlin-poet-ksp = { module = "com.squareup:kotlinpoet-ksp", version.ref = "koltin-poet-ksp" }
+kotlin-poet-ksp = { module = "com.squareup:kotlinpoet-ksp", version.ref = "kotlin-poet" }
 kotlin-test-junit = { module = "org.jetbrains.kotlin:kotlin-test-junit", version.ref = "kotlin" }
 kotlin-compile-testing = { module = "dev.zacsweers.kctfork:core", version.ref = "kotlin-compile-test" }
 kotlin-compile-testing-ksp = { module = "dev.zacsweers.kctfork:ksp", version.ref = "kotlin-compile-test" }
@@ -42,7 +42,7 @@ sword-api-kotlin = { group = "com.sunxiaodou.kotlin", name = "sword-api-kt", ver
 sword-compiler-ksp = { group = "com.sunxiaodou.kotlin", name = "sword-compiler-ksp", version.ref = "plugin" }
 
 [plugins]
-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin-android-plugin" }
+kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 kotlin-kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin" }
 

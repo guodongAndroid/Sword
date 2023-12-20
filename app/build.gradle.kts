@@ -6,12 +6,13 @@ plugins {
 }
 
 android {
-    compileSdk = 32
+    namespace = "com.guodong.android.sword.app"
+    compileSdk = 34
 
     defaultConfig {
         applicationId = "com.guodong.android.sword.app"
         minSdk = 21
-        targetSdk = 32
+        targetSdk = 34
         versionCode = 1
         versionName = "1.0"
 
@@ -29,11 +30,9 @@ android {
 
     buildTypes {
         getByName("debug") {
-            buildConfigField("boolean", "isDebug", "true")
             signingConfig = signingConfigs["release"]
         }
         getByName("release") {
-            buildConfigField("boolean", "isDebug", "false")
             signingConfig = signingConfigs["release"]
             isMinifyEnabled = false
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
