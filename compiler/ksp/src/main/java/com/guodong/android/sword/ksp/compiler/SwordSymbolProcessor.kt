@@ -45,7 +45,8 @@ class SwordSymbolProcessor(
             return emptyList()
         }
 
-        logger.warn("$TAG: ${env.kotlinVersion}")
+        logger.warn("$TAG: language version: ${env.kotlinVersion}, api version: " +
+                "${env.apiVersion}, compiler version: ${env.compilerVersion}")
 
         val mProxyHandlerType =
             resolver.getClassDeclarationByName(mProxyHandlerName)?.asType(emptyList())

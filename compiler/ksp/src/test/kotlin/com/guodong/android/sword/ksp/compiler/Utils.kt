@@ -16,7 +16,8 @@ const val KT_EXTENSION = ".kt"
 fun compile(
     handlerName: String,
     @Language("kotlin") handlerSource: String,
-    args: MutableMap<String, String> = mutableMapOf()
+    args: MutableMap<String, String> = mutableMapOf(),
+    useK2: Boolean = false,
 ): JvmCompilationResult {
     return KotlinCompilation().apply {
         sources = listOf(SourceFile.kotlin(handlerName.plus(KT_EXTENSION), handlerSource))
@@ -24,5 +25,10 @@ fun compile(
         kspArgs = args
         symbolProcessorProviders = listOf(SwordSymbolProcessorProvider())
         inheritClassPath = true
+
+        this.supportsK2 = useK2
+        if (useK2) {
+            languageVersion = "2.0"
+        }
     }.compile()
 }

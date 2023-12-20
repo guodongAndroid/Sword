@@ -15,12 +15,18 @@ const val KT_EXTENSION = ".kt"
 fun testKotlinCompilation(
     testName: String,
     @Language("kotlin") testSource: String,
+    useK2: Boolean = false,
 ): KotlinCompilation {
     return KotlinCompilation().apply {
         sources = listOf(
             SourceFile.kotlin(testName.plus(KT_EXTENSION), testSource),
         )
         inheritClassPath = true
+
+        this.supportsK2 = useK2
+        if (useK2) {
+            languageVersion = "2.0"
+        }
     }
 }
 
@@ -28,7 +34,8 @@ fun swordKotlinCompilation(
     testName: String,
     @Language("kotlin") testSource: String,
     handlerName: String,
-    @Language("kotlin") handlerSource: String
+    @Language("kotlin") handlerSource: String,
+    useK2: Boolean = false,
 ): KotlinCompilation {
     return KotlinCompilation().apply {
         sources = listOf(
@@ -37,6 +44,11 @@ fun swordKotlinCompilation(
         )
         compilerPluginRegistrars = listOf(SwordCompilerPluginRegistrar(true))
         inheritClassPath = true
+
+        this.supportsK2 = useK2
+        if (useK2) {
+            languageVersion = "2.0"
+        }
     }
 }
 

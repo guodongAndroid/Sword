@@ -20,7 +20,7 @@ class SwordClassGenerator(
 ) : ClassGenerator by delegate {
 
     private val annotations: List<FqName> = listOf(
-        FqName("com.guodong.android.sword.api.kt.Proxy"),
+        SwordNames.PROXY_FQ_NAME,
     )
 
     override fun newMethod(

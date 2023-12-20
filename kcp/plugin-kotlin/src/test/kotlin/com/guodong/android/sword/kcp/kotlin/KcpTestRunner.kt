@@ -19,6 +19,7 @@ import org.junit.runners.Suite.SuiteClasses
     TestProxyDisabled::class,
     TestReferenceArg::class,
     TestTopLevelAndObject::class,
+    TestDeclarationChecker::class,
 )
 class KcpTestRunner {
 }

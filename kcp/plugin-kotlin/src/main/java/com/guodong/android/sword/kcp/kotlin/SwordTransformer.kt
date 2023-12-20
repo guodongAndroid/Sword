@@ -53,8 +53,6 @@ class SwordTransformer(
         ).first()
     private val arrayOfSymbol = pluginContext.irBuiltIns.arrayOf
 
-    private val proxyAnnotationFqName = FqName("com.guodong.android.sword.api.kt.Proxy")
-
     override fun visitFunctionNew(declaration: IrFunction): IrStatement {
         if (declaration.isSuspend || declaration.isInline || declaration.isExpect || declaration.isExternal) {
             return super.visitFunctionNew(declaration)
@@ -74,7 +72,7 @@ class SwordTransformer(
         param.hasProxyAnnotation = true
 
         val irProxyConstructorCall = declaration.annotations.filter {
-            it.isAnnotation(proxyAnnotationFqName)
+            it.isAnnotation(SwordNames.PROXY_FQ_NAME)
         }.toList().single()
 
         val enableParam = irProxyConstructorCall.getValueArgument(0)

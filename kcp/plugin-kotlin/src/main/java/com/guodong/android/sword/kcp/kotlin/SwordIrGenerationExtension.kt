@@ -12,8 +12,6 @@ class SwordIrGenerationExtension(
     private val messageCollector: MessageCollector,
 ) : IrGenerationExtension {
 
-    private val proxyAnnotationFqName = FqName("com.guodong.android.sword.api.kt.Proxy")
-
     override fun generate(moduleFragment: IrModuleFragment, pluginContext: IrPluginContext) {
         messageCollector.report(
             CompilerMessageSeverity.WARNING,
@@ -21,7 +19,7 @@ class SwordIrGenerationExtension(
         )
 
         val proxyAnnotation =
-            pluginContext.referenceClass(ClassId.topLevel(proxyAnnotationFqName))
+            pluginContext.referenceClass(ClassId.topLevel(SwordNames.PROXY_FQ_NAME))
         if (proxyAnnotation == null) {
             messageCollector.report(
                 CompilerMessageSeverity.ERROR,
