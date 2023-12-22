@@ -81,7 +81,7 @@ class MainActivity : AppCompatActivity() {
 
     @Proxy(
         enable = true,
-        handler = HandlerFqName.GET_TEXT_NO_ARG
+        handler = HandlerFqNames.GET_TEXT_NO_ARG
     )
     private fun getText(text: String): String {
         return text

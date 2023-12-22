@@ -33,8 +33,8 @@ class SwordSymbolProcessor(
         private const val PACKAGE_NAME_PARAM_NAME = "sword.pkg"
 
         private const val DEFAULT_PACKAGE_NAME = "com.guodong.android.sword"
-        private const val FILE_NAME = "HandlerFqName"
-        private const val CLASS_NAME = "HandlerFqName"
+        private const val FILE_NAME = "HandlerFqNames"
+        private const val CLASS_NAME = "HandlerFqNames"
     }
 
     private var completed = false

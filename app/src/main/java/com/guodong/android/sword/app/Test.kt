@@ -10,13 +10,13 @@ class Test {
 
     @Proxy(
         enable = true,
-        handler = HandlerFqName.GET_TEXT_NO_ARG
+        handler = HandlerFqNames.GET_TEXT_NO_ARG
     )
     fun getTextNoArg() = "guodongAndroid"
 
     @Proxy(
         enable = true,
-        handler = HandlerFqName.GetTextArgInvocationHandler
+        handler = HandlerFqNames.GetTextArgInvocationHandler
     )
     fun getTextArg(
         b: Byte,
@@ -41,7 +41,7 @@ class Test {
 
     @Proxy(
         enable = true,
-        handler = HandlerFqName.GetTextArgInvocationHandler
+        handler = HandlerFqNames.GetTextArgInvocationHandler
     )
     fun testHandler(
         b: Byte,
@@ -54,7 +54,7 @@ class Test {
 
     @Proxy(
         enable = true,
-        handler = HandlerFqName.TEST_INT
+        handler = HandlerFqNames.TEST_INT
     )
     fun testInt(): Int {
         return 1
@@ -64,13 +64,13 @@ class Test {
 
         private val TAG = TestInner::class.java.simpleName
 
-        @Proxy(enable = true, handler = HandlerFqName.GetTextArgInvocationHandler)
+        @Proxy(enable = true, handler = HandlerFqNames.GetTextArgInvocationHandler)
         fun getUser() = User("guodongAndroid-Inner", 28)
 
         fun anonymousFun() {
             Runnable {
 
-                @Proxy(enable = true, handler = HandlerFqName.GetTextArgInvocationHandler)
+                @Proxy(enable = true, handler = HandlerFqNames.GetTextArgInvocationHandler)
                 fun getUser() = User("guodongAndroid-Anonymous", 28)
 
                 val user = getUser()
@@ -81,7 +81,7 @@ class Test {
     }
 
     class TestStatic {
-        @Proxy(enable = true, handler = HandlerFqName.GetTextArgInvocationHandler)
+        @Proxy(enable = true, handler = HandlerFqNames.GetTextArgInvocationHandler)
         fun getUser() = User("guodongAndroid-StaticInnerClass", 28)
     }
 }
