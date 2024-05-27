@@ -80,7 +80,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     @Proxy(
-        enable = true,
+        enable = BuildConfig.DEBUG,
         handler = HandlerFqNames.GET_TEXT_NO_ARG
     )
     private fun getText(text: String): String {
