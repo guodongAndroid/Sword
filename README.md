@@ -10,6 +10,7 @@ Implemented using kotlin compiler plugin, currently only applicable to Kotlin fu
 
 | Kotlin | KSP           | Sword | PluginId                          |
 | :----- | :------------ | :---- | :-------------------------------- |
+| 1.9.21 | 1.9.21-1.0.15 | 0.0.4 | `com.sunxiaodou.kotlin.sword.kcp` |
 | 1.8.22 | 1.8.22-1.0.11 | 0.0.3 | `com.sunxiaodou.kotlin.sword.kcp` |
 | 1.7.10 | 1.7.10-1.0.6  | 0.0.2 | `com.sunxiaodou.kotlin.sword.kcp` |
 
