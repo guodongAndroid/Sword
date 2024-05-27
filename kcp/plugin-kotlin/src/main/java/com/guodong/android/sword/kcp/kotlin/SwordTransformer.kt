@@ -105,24 +105,33 @@ class SwordTransformer(
         }
 
         if (param.enable) {
-            /*messageCollector.report(
-                CompilerMessageSeverity.WARNING,
-                declaration.dump()
-            )*/
+            val handlerClassId = ClassId.topLevel(FqName(param.handler))
+            val handlerClassSymbol = pluginContext.referenceClass(handlerClassId)
+            if (handlerClassSymbol == null) {
+                messageCollector.report(
+                    CompilerMessageSeverity.WARNING,
+                    "[$className.$methodName] not found [${param.handler}] InvocationHandler."
+                )
+            } else {
+                /*messageCollector.report(
+                    CompilerMessageSeverity.WARNING,
+                    declaration.dump()
+                )*/
 
-            val sword = irSword(declaration, param, className, methodName)
+                val sword = irSword(declaration, param, className, methodName)
 
-            /*messageCollector.report(
+                /*messageCollector.report(
                 CompilerMessageSeverity.WARNING,
                 sword.dump()
             )*/
 
-            declaration.body = sword
+                declaration.body = sword
 
-            /*messageCollector.report(
+                /*messageCollector.report(
                 CompilerMessageSeverity.WARNING,
                 declaration.dump()
             )*/
+            }
         }
 
         return super.visitFunctionNew(declaration)
@@ -136,8 +145,10 @@ class SwordTransformer(
     ): IrBlockBody {
         return DeclarationIrBuilder(pluginContext, function.symbol).irBlockBody {
 
+            val handlerClassId = ClassId.topLevel(FqName(param.handler))
+
             val handlerConstructorSymbol =
-                pluginContext.referenceConstructors(ClassId.topLevel(FqName(param.handler)))
+                pluginContext.referenceConstructors(handlerClassId)
                     .single {
                         it.owner.valueParameters.isEmpty()
                     }
@@ -145,7 +156,7 @@ class SwordTransformer(
             val invokeSymbol =
                 pluginContext.referenceFunctions(
                     CallableId(
-                        FqName(param.handler),
+                        handlerClassId,
                         Name.identifier(INVOKE_METHOD_NAME)
                     )
                 )

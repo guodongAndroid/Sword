@@ -26,30 +26,47 @@ class SwordFirFunctionChecker : FirFunctionChecker() {
         reporter: DiagnosticReporter
     ) {
         if (declaration.hasAnnotation(SwordNames.PROXY_CLASS_ID, context.session)) {
-            val annotation =
-                declaration.getAnnotationByClassId(SwordNames.PROXY_CLASS_ID, context.session)
-                    ?: return
-
-            val enable =
-                annotation.getBooleanArgument(SwordNames.PROXY_ENABLE_VALUE_ARGUMENT_NAME) ?: return
-            if (!enable) {
-                return
-            }
-
-            val handler =
-                annotation.getStringArgument(SwordNames.PROXY_HANDLER_VALUE_ARGUMENT_NAME) ?: return
-            val handlerClassId = ClassId.topLevel(FqName(handler))
-            val handlerClassDeclaration = context.containingDeclarations
-                .filterIsInstance<FirClass>()
-                .find { it.classId == handlerClassId }
-            if (handlerClassDeclaration == null) {
-                reporter.reportOn(
-                    declaration.source,
-                    SwordKtErrors.NOT_FOUND_INVOCATION_HANDLER,
-                    handler,
-                    context
-                )
-            }
+            checkFunction(declaration, context, reporter)
         }
+    }
+
+    private fun checkFunction(
+        declaration: FirFunction,
+        context: CheckerContext,
+        reporter: DiagnosticReporter
+    ) {
+        val annotation =
+            declaration.getAnnotationByClassId(SwordNames.PROXY_CLASS_ID, context.session)
+                ?: return
+
+        val enable =
+            annotation.getBooleanArgument(SwordNames.PROXY_ENABLE_VALUE_ARGUMENT_NAME) ?: return
+        if (!enable) {
+            return
+        }
+
+        val handler =
+            annotation.getStringArgument(SwordNames.PROXY_HANDLER_VALUE_ARGUMENT_NAME) ?: return
+        if (handler.isEmpty()) {
+            reporter.reportOn(
+                declaration.source,
+                SwordKtErrors.HANDLER_NOT_ALLOW_EMPTY,
+                context
+            )
+            return
+        }
+
+        /*val handlerClassId = ClassId.topLevel(FqName(handler))
+        val handlerClassDeclaration = context.containingDeclarations
+            .filterIsInstance<FirClass>()
+            .find { it.classId == handlerClassId }
+        if (handlerClassDeclaration == null) {
+            reporter.reportOn(
+                declaration.source,
+                SwordKtErrors.NOT_FOUND_INVOCATION_HANDLER,
+                handler,
+                context
+            )
+        }*/
     }
 }

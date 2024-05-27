@@ -23,9 +23,25 @@ class TestDeclarationChecker {
                 
                     @Proxy(
                         enable = true,
-                        handler = "${handlerName}2"
+                        handler = "$handlerName"
                     )
                     fun test() {
+                        println("I'm test method.")
+                    }
+
+                    @Proxy(
+                        enable = true,
+                        handler = "${handlerName}2"
+                    )
+                    fun test2() {
+                        println("I'm test method-2.")
+                    }
+
+                    @Proxy(
+                        enable = true,
+                        handler = "$handlerName"
+                    )
+                    fun test3() {
                         println("I'm test method.")
                     }
                 }
@@ -71,7 +87,9 @@ class TestDeclarationChecker {
 
         val testSource = """
                 import com.guodong.android.sword.api.kt.Proxy
+                import com.guodong.android.sword.api.kt.ProxyHandler
 
+                @ProxyHandler
                 class $testName {
                 
                     @Proxy(
@@ -114,7 +132,7 @@ class TestDeclarationChecker {
         val handlerResult =
             swordKotlinCompilation(testName, testSource, handlerName, handlerSource, true).compile()
         assertEquals(KotlinCompilation.ExitCode.COMPILATION_ERROR, handlerResult.exitCode)
-        assertContains(handlerResult.messages, "Sword: Fir Not found [TestDeclarationCheckerInvocationHandler2] InvocationHandler.")
+        assertContains(handlerResult.messages, "Sword: Fir Class annotated as @ProxyHandler, should implement InvocationHandler interface.")
     }
 
     @Test

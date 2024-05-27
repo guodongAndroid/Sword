@@ -46,6 +46,9 @@ android {
 
     kotlinOptions {
         jvmTarget = "1.8"
+
+        // Use K2
+        // languageVersion = "2.0"
     }
 
     // https://kotlinlang.org/docs/ksp-quickstart.html#make-ide-aware-of-generated-code

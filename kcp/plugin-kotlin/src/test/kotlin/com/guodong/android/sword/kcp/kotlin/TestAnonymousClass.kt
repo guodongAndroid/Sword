@@ -67,7 +67,6 @@ class TestAnonymousClass {
 
         val handlerSource = """
                 import com.guodong.android.sword.api.kt.InvocationHandler
-                import com.guodong.android.sword.kcp.kotlin.User
 
                 class $handlerName : InvocationHandler {
 
